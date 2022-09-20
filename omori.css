@@ -1,13 +1,13 @@
 /*Font*/
 
 @font-face {
-    font-family: gamefont;
-    src: url(./OMORI_GAME.ttf);
+    font-family: gamefont, jp;
+    src: url(https://raw.githubusercontent.com/whuuayu/omori-css/main/font.ttf);
 }
 
 @font-face {
     font-family: jp;
-    src: url(./YuNaFont.ttf);
+    src: url(https://raw.githubusercontent.com/whuuayu/omori-css/main/fontjp.ttf);
 }
 
 * {
