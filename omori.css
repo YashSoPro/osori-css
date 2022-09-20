@@ -86,8 +86,36 @@
     display: none;
 }
 
-/*Main Menu*/
+/*Loading Screen*/
 
+#initLoader {
+    background-color: #000;
+}
+
+#lC-cont {
+    display: none;
+}
+
+#loadEditrBtn {
+    display: none;
+}
+
+#loadInfoLHolder, #loadInfoRHolder {
+    font-size: 0;
+    color: #fff;
+}
+
+#loadInfoLHolder::before {
+    content: "Last Updated 2022-9-20";
+    font-size: 32px;
+}
+
+#loadInfoRHolder::before {
+    content: "CSS by tae";
+    font-size: 32px;
+}
+
+/*Main Menu*/
 
 #instructionHolder {
     backdrop-filter: grayscale(1) contrast(5);
