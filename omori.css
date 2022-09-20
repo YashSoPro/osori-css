@@ -880,7 +880,7 @@ input:checked+.slider:before {
     width:100%;
     height:100%;
     image-rendering:unset !important;
-    content: url(https://static.wikia.nocookie.net/omori/images/6/6b/Basil_Neutral_%28Background%29.gif/revision/latest?cb=20220617071437&format=original) !important;
+    content: url(https://static.wikia.nocookie.net/omori/images/6/6b/Basil_Neutral_%28Background%29.gif) !important;
 }
 
 .healthBarSeg:nth-child(4) .hpBSeg[style*=":0%;"]::before {
@@ -954,7 +954,7 @@ input:checked+.slider:before {
     bottom: 70px;
     width: 28px;
     height: 28px;
-    content: url(https://static.wikia.nocookie.net/omori/images/f/f5/HP.png/revision/latest?cb=20201228231011);
+    content: url(https://static.wikia.nocookie.net/omori/images/f/f5/HP.png);
     image-rendering: auto;
 }
 
