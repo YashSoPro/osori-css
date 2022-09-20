@@ -661,7 +661,8 @@ div[style="display:inline-block;vertical-align:top;width:560px;margin-left:10px"
 
 .custItNm {
     font-size: 32px;
-    top: 0;
+    bottom: 0;
+    top: unset;
     left: 10px;
 }
 
