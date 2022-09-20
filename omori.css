@@ -1,3 +1,19 @@
+/*Font*/
+
+@font-face {
+    font-family: gamefont;
+    src: url(./OMORI_GAME.ttf);
+}
+
+@font-face {
+    font-family: jp;
+    src: url(./YuNaFont.ttf);
+}
+
+* {
+    font-family: gamefont;
+}
+
 /*Ads and Other*/
 
 #aHolder {
