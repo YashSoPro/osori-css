@@ -1,14 +1,14 @@
-::-webkit-scrollbar {
-    display: none;
-}
-
-/*Ads*/
+/*Ads and Other*/
 
 #aHolder {
     display: none !important;
 }
 
 #onetrust-consent-sdk {
+    display: none !important;
+}
+
+::-webkit-scrollbar {
     display: none;
 }
 
