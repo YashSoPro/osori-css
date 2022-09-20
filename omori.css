@@ -1,7 +1,7 @@
 /*Font*/
 
 @font-face {
-    font-family: gamefont, jp;
+    font-family: gamefont;
     src: url(https://raw.githubusercontent.com/whuuayu/omori-css/main/font.ttf);
 }
 
@@ -11,7 +11,7 @@
 }
 
 * {
-    font-family: gamefont;
+    font-family: gamefont, jp;
 }
 
 /*Ads and Other*/
