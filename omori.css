@@ -20,6 +20,14 @@
     display: none !important;
 }
 
+#streamContainer {
+    display: none;
+}
+
+#mapInfoHld {
+    display: none;
+}
+
 #onetrust-consent-sdk {
     display: none !important;
 }
