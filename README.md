@@ -1,9 +1,9 @@
 # OMORI THEME
 a Krunker UI Theme inspired by OMORI.
 
-## Update 2021-12-1
+## Update 2023-4-26
 
-- Initial Release (lots of things to work on ^   ^;)
+- Removed Stream Container (No one likes this)
 
 ## License
 
