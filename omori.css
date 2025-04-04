@@ -1,1127 +1,423 @@
-/*Font*/
+/* === GLOBAL STYLES AND VARIABLES === */
 
-@font-face {
-    font-family: gamefont;
-    src: url(https://raw.githubusercontent.com/whuuayu/omori-css/main/font.ttf);
-}
-
-@font-face {
-    font-family: jp;
-    src: url(https://raw.githubusercontent.com/whuuayu/omori-css/main/fontjp.ttf);
+:root {
+    --ui-bg: #000;
+    --ui-fg: #fff;
+    --ui-softwhite: #ddd;
+    --ui-shadow: #fff;
+    --accent-color: #00ff88; /* Optional neon accent */
 }
 
 * {
-    font-family: gamefont, jp;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
 }
 
-/*Ads and Other*/
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--ui-bg);
+    color: var(--ui-fg);
+}
+/* === TOP COUNTERS: FPS, Ping, Packets etc. === */
 
-#aHolder {
+#timerVal {
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--ui-shadow);
+}
+
+#timerIcon, #pingIcon {
+    display: none;
+}
+
+#pingText::after {
+    content: " ms";
+}
+
+#pingText, #ingressPacketCount, #ingressDataSize,
+#egressPacketCount, #egressDataSize, #pingDisplay, #fpsDisplay,
+#ingressDisplay, #egressDisplay {
+    font-size: 20px;
+    color: var(--ui-fg);
+    text-shadow: 0 0 5px var(--ui-shadow);
+    padding: 4px 10px;
+    border-radius: 0;
+}
+
+#ingameFPS {
+    color: var(--ui-fg) !important;
+}
+
+/* Hover highlight */
+#pingDisplay:hover, #fpsDisplay:hover,
+#ingressDisplay:hover, #egressDisplay:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 8px var(--accent-color);
+    cursor: default;
+}
+/* === COUNTERS: Kills, Deaths, Streak, KD === */
+
+.topRightCounters {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    padding: 10px 20px;
+    border-radius: 0;
+    background-color: #000;
+    box-shadow: inset 0 0 0 6px #fff;
+    border: 2px solid #000;
+    z-index: 9999;
+}
+
+.countIcon {
+    color: var(--ui-fg);
+    font-size: 28px;
+    line-height: 36px;
+    padding: 8px 16px 4px 16px;
+    background-color: transparent;
+    border-radius: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+#killsIcon, #deathsIcon, #streakIcon, #kdIcon {
+    width: 24px;
+    height: 24px;
+    filter: drop-shadow(0 0 3px #fff);
+}
+
+#killsVal, #deathsVal, #streakVal, #kdVal, #myScoreVal {
+    color: var(--ui-fg);
+    font-size: 20px;
+    text-shadow: 0 0 5px var(--ui-shadow);
+}
+/* === END SCREEN: Leaderboard, Scores, Victory === */
+
+#endAContainer {
     display: none !important;
 }
 
-#streamContainer {
-    display: none;
+#victoryText {
+    margin-top: 48px;
+    font-size: 48px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+    font-weight: bold;
 }
 
-#mapInfoHld {
-    display: none;
-}
-
-#onetrust-consent-sdk {
-    display: none !important;
-}
-
-::-webkit-scrollbar {
-    display: none;
-}
-
-/*Chat*/
-
-#uiBase.onMenu #chatHolder {
-    left: 20px;
-}
-
-#chatHolder {
-    padding: 8px;
+#matchVoteHolder {
+    top: 254px;
+    border-radius: 0;
     background-color: #000;
     box-shadow: inset 0 0 0 6px #fff;
     outline: 2px solid #000;
+    padding: 10px 16px;
 }
 
-.onGame #chatHolder {
-    bottom: 20px !important;
-    left: unset !important;
-    right: 20px;
+#endMidHolder {
+    margin-top: 72px;
 }
 
-#chatList {
-    padding: 8px;
-    padding-bottom: 0;
-    padding-top: 0;
-}
-
-.chatItem {
-    font-size: 24px;
-    margin: 0 !important;
-    margin-bottom: 8px;
-    padding: 12px;
-    max-width: unset;
-}
-
-.chatItem.chatTextOutline {
-    text-shadow: none;
-}
-
-#chatInputHolder {
-    margin-top: 0;
-    border: none;
-}
-
-#chatSwitch {
-    margin-bottom: 4px;
-    font-size: 24px;
-}
-
-#chatInput {
-    padding: 3px 8px;
-    padding-top: 0;
-    font-size: 24px;
-    border: none !important;
-}
-
-#voiceDisplay {
-    display: none;
-}
-
-/*Loading Screen*/
-
-#initLoader {
+.endCard {
     background-color: #000;
-}
-
-#lC-cont {
-    display: none;
-}
-
-#loadEditrBtn {
-    display: none;
-}
-
-#loadInfoLHolder, #loadInfoRHolder {
-    font-size: 0;
-    color: #fff;
-}
-
-#loadInfoLHolder::before {
-    content: "Last Updated 2023-5-26";
-    font-size: 32px;
-}
-
-#loadInfoRHolder::before {
-    content: "CSS by tae";
-    font-size: 32px;
-}
-
-/*Main Menu*/
-
-#instructionHolder {
-    backdrop-filter: grayscale(1) contrast(5);
-}
-
-.onMenu #instructions {
-    display: none;
-}
-
-#instructionsUpdate {
-    font-size: 48px;
     border-radius: 0;
     box-shadow: inset 0 0 0 6px #fff;
     outline: 2px solid #000;
+    padding: 12px;
+    margin-bottom: 20px;
 }
 
-#instructionsUpdate div {
-    color: #fff !important;
-}
+/* === Leaderboard Table === */
 
-#instructionsUpdate div[style*="13px"] {
-    font-size: 20px !important;
-}
-
-#instructionsUpdate div[style*="15px"] {
-    font-size: 28px !important;
-}
-
-#instructionsUpdate a {
+.tabHeader {
     font-size: 32px;
-}
-
-#gameNameHolder::after {
-    content: "OMORI";
-    font-size: 128px;
     font-weight: bold;
     color: #fff;
-    position: relative;
-    letter-spacing: 8px;
-}
-
-#gameNameHolder {
-    top: 40px;
-    height: auto;
-    z-index: 1;
-    transform: translate(-50%, 0);
-}
-
-#mainLogo {
-    display: none;
-}
-
-#seasonLabel {
-    display: none;
-}
-
-/*Buttons*/
-
-#subLogoButtons {
-    bottom: 20px;
-    width: 860px;
-    transform: translate(-50%,0);
-    display: flex;
-    justify-content: space-between;
-    z-index: 5;
-}
-
-#braveWarning, #rankedSoonTm {
-    display: none;
-}
-
-#subLogoButtons>.button, #customizeButton {
-    border-width: 0 !important;
-}
-
-#faceItIconM {
-    display: none;
-}
-
-.button.small {
-    padding: 8px 20px!important;
-    padding-bottom: 12px !important;
-    font-size: 24px !important;
-    background-color: #000 !important;
-    box-shadow: inset 0 0 0 6px #fff !important;
-    border-radius: 0;
-    outline: 2px solid #000;
-    text-transform: uppercase;
-    margin: 0;
-}
-
-#menuItemContainer {
-    flex-direction: row;
-    left: 50%;
-    top: 128px;
-    padding-top: 40px;
-    bottom: unset;
-    height: 64px;
-    width: 420px;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition-duration: 0.25s;
-    background-color: transparent;
-}
-
-#menuItemContainer:hover {
-    opacity: 1;
-}
-
-.menuItem {
-    background-color: transparent;
-}
-
-.menuItem:hover {
-    border-left: 0;
-    transform: scale(1.1);
-}
-
-.menuItem:hover .menuItemTitle {
-    filter: brightness(0.8);
-}
-
-.menBtnIcn {
-    display: none !important;
-}
-
-.menuItem .menuItemTitle {
-    margin-top: 0;
-    font-size: 0 !important;
-    font-family: 'Material Icons';
-    color: var(--accent);
-    transition-duration: 0.25s;
-}
-
-.menuItemTitle::after {
-    font-size: 28px;
-}
-
-#menuBtnProfile.menuItemTitle::after {
-    content: "person";
-}
-
-#menuBtnShop.menuItemTitle::after {
-    content: "sell";
-}
-
-#menuBtnChall.menuItemTitle::after {
-    content: "star";
-}
-
-#menuBtnSocial.menuItemTitle::after {
-    content: "people";
-}
-
-#menuBtnMaps.menuItemTitle::after {
-    content: "explore";
-}
-
-#menuBtnMods.menuItemTitle::after {
-    content: "extension";
-}
-
-#menuBtnSettings.menuItemTitle::after {
-    content: "build";
-}
-
-#menuBtnExit.menuItemTitle::after {
-    content: "cancel";
-}
-
-.menuItem:hover #menuBtnExit {
-    transform: rotate(90deg);
-}
-
-/*Headers*/
-
-.headerBar {
-    z-index: 1;
-}
-
-.headerBar div {
-    font-size: 32px;
-}
-
-#mapInfo {
-    font-size: 32px;
-}
-
-.headerBarLeft {
-    display: none;
-}
-
-.headerBarRight {
-    top: 20px;
-    right: 20px;
-    padding: 0;
-    background-color: transparent;
-}
-
-.menuDebugInfo {
-    display: none;
-}
-
-.headerBarRight .verticalSeparator {
-    display: none;
-}
-.imageButton, #editorBtnM,.menuSocialB {
-    display: none !important;
-}
-
-#newsHolder {
-    display: none;
-}
-
-#tlInfHold {
-    display: none;
-}
-
-#streamContainer {
-    opacity: 0;
-    left: 20px;
-    top: 20px;
-    transition-duration: 0.5s;
-}
-
-#streamContainer:hover {
-    opacity: 1;
-}
-
-#uiBase.onMenu #spectButton {
-    z-index: 2;
-    width: 56px;
-    top: unset;
-    left: unset;
-    bottom: 20px;
-    right: 96px;
-    transform: unset;
-}
-
-#spectButton span[style="font-size:15px;color:rgba(255,255,255,0.6)"] {
-    color: transparent !important;
-}
-
-#spectButton .switchsml {
-    margin: 0;
-    position: absolute;
-    width: 100%;
-}
-
-.sliderSml {
-    opacity: 1;
-}
-
-.sliderSml::before {
-    content: "visibility_off";
-    font-size: 36px;
-    color: white;
-    width: max-content;
-    height: auto;
-    background-color: transparent;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #fff;
     text-align: center;
-    transition-duration: 0.25s;
-    font-family: 'Material Icons';
+}
+
+th, td {
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+    padding: 8px 16px;
+    border-bottom: 1px solid #444;
+}
+
+td {
+    font-size: 42px;
+}
+
+.teamTotalN0, .teamTotalN1, .teamTotalScore {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.teamTotals {
     background-color: #000;
     border-radius: 0;
-    padding: 8px;
     box-shadow: inset 0 0 0 6px #fff;
     outline: 2px solid #000;
+    padding: 8px 16px;
+    margin-top: 12px;
 }
 
-input:checked+.sliderSml::before {
-    content: "visibility";
-    transform: unset;
-}
-
-input:checked+.sliderSml {
-    background-color: transparent !important;
-}
-
-.sliderSml {
-    opacity: 1;
-    background-color: transparent;
-}
-
-/*Login*/
-
-.accountInput {
-    background-color: transparent;
-}
-
-.accBtn {
-    border-radius: 0;
-    border-color: #fff !important;
-}
-
-/*Menu Window*/
-
-#windowHolder {
-    content: " ";
-    position: fixed;
-    display: block !important;
-    width: 100%;
-    height: 100%;
-    transform: translateY(-100%);
-    transition-duration: 0.5s;
-    background-color: transparent !important;
-}
-
-#windowHolder[style="display: block;"] {
-    position: fixed;
-    content: " ";
-    width: 100%;
-    height: 100%;
-    transform: translateY(0);
-    transition-duration: 0.5s;
-}
-
-#menuWindow {
-    background-color: #000;
-    border-radius: 0;
-    box-shadow: none;
-    border: 6px solid #fff;
-    outline: 2px solid #000;
-}
-
-#menuWindow.dark {
-    background-color: #000;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-
-.bigMenTab {
-    font-size: 20px;
-}
-
-#profilePicM {
-    border-radius: 0;
-    width: 156px;
-    height: 156px;
-    margin: 0;
-}
-
-#profilePicM~.setBodH {
-    width: calc(100% - 180px) !important;
-}
-
-#profilePicM img[src*="icon_0.png"] {
-    content: url(https://static.wikia.nocookie.net/omori/images/0/0f/Omorisuccumb.gif);
-}
-
-.setBodH {
-    padding: 0;
-    width: unset;
-}
-
-.setHed {
-    background-color: transparent !important;
-    border: none;
-    font-size: 36px;
-    padding: 0;
-}
-
-.settName, .settNameSmall {
-    margin-top: 4px;
-    font-size: 32px;
-    color: #fff !important;
-    padding: 0;
-    border: none;
-}
-
-.settName .floatR {
+#endTimer {
+    font-size: 48px;
+    font-style: normal;
     color: #fff;
+    text-align: center;
+    margin-top: 16px;
 }
+/* === Account Manager Button (Bottom Right Icon) === */
 
-.settLabel, .settText {
-    font-size: 32px;
-}
-
-.pSt {
-    font-size: 32px;
-    width: -webkit-fill-available;
-    text-align: left;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 12px;
-    border: none;
-}
-
-.pSt strong {
-    font-size: 32px;
-    float: right;
-    color: #fff;
-}
-
-#menuWindow [style*="#292929"] {
-    color: #fff !important;
-}
-
-#menuWindow [style*="0.3"] {
-    color: #fff !important;
-}
-#menuWindow [style*="0.5"] {
-    color: #fff !important;
-}
-
-#menuWindow div[style="color:rgba(0,0,0,0.3);margin-top:-5px;margin-bottom:10px"] {
-    display: none;
-}
-
-#menuWindow div[style="display:inline-block;vertical-align:top;width:560px;margin-left:10px"] {
-    width: 572px !important;
-}
-
-div[style="display:inline-block;vertical-align:top;width:560px;margin-left:10px"] .settName[style="margin-top:0px"] {
-    font-size: 0;
-    position: absolute;
-    top: 216px;
-    z-index: 4;
-    left: 32px;
-}
-
-div[style="display:inline-block;vertical-align:top;width:560px;margin-left:10px"] .settName[style="margin-top:0px"] .floatR {
-    font-size: 36px;
-}
-
-div[style="display:inline-block;vertical-align:top;width:560px;margin-left:10px"] .settName[style="margin-top:0px"]::before {
-    content: "LVL. ";
-    font-size: 36px;
-}
-
-.menuTabNew {
-    font-size: 36px;
-    color: #fff;
-    border: none !important;
-    padding: 0;
-}
-
-.xpBar {
-    padding: 4px;
-    background-color: transparent;
-    border-radius: 0;
-    border: 4px solid #fff;
-    width: -webkit-fill-available;
-}
-
-.xpBarB {
-    background-image: linear-gradient(90deg, #3300c4, #fc90f5);
-}
-
-.xpBarV {
-    right: 12px;
-    text-align: right;
-    font-size: 36px;
-    top: 2px;
-    text-shadow: none;
-}
-
-/*Loadout*/
-
-#menuClassContainer {
-    transform: unset;
-    right: 20px;
-    bottom: 22px;
-    top: unset;
-    align-items: flex-end;
-}
-
-#bubbleContainer {
-    display: none;
-}
-
-#classPreviewCanvas {
-    display: none;
-}
-
-#menuClassNameTag {
-    display: none;
-}
-
-#policeButton {
-    display: none;
-}
-
-#customizeButton {
+#accManagerBtn {
+    position: fixed !important;
+    bottom: 20px;
+    right: 100px;
     font-size: 0 !important;
-    width: 52px;
-    height: 52px;
-    padding: 0;
+    width: auto !important;
+    padding: 10px 14px 10px 12px !important;
+    margin: 0;
+    border-radius: 0;
+    border: 2px solid #000;
+    background-color: #000 !important;
+    box-shadow: inset 0 0 0 6px #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    z-index: 999;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#accManagerBtn:hover {
+    background-color: #111 !important;
+    box-shadow: inset 0 0 0 6px #fff, 0 0 12px #fff;
+    transform: scale(1.05);
+}
+
+/* Adding Material Icons Content */
+#accManagerBtn::before {
+    content: "person";
+    font-family: 'Material Icons';
+    font-size: 32px;
+    color: #fff;
+    line-height: 1;
+}
+/* === FPS, Ping & Network Counters UI === */
+
+#timerVal {
+    font-size: 48px;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+}
+
+#timerIcon, #pingIcon {
+    display: none;
+}
+
+#pingText::after {
+    content: " ms";
+}
+
+/* Generic counter styles */
+#pingText, 
+#ingressPacketCount, #ingressDataSize, 
+#egressPacketCount, #egressDataSize, 
+#pingDisplay, #fpsDisplay, 
+#ingressDisplay, #egressDisplay {
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 1px 0 #000, 0 1px #000, -1px 0 #000, 0 -1px #000;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+#ingameFPS {
+    color: #fff !important;
+}
+
+/* Top-right stat box container */
+.topRightCounters {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000;
+    box-shadow: inset 0 0 0 6px #fff;
+    border: 2px solid #000;
+    border-radius: 0;
+    padding: 12px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    z-index: 1000
+/* === End Screen Overhaul === */
+
+#endAContainer {
+    display: none !important;
+}
+
+#victoryText {
+    margin-top: 48px;
+    font-size: 64px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px #000;
+}
+
+#endMidHolder {
+    margin-top: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+/* End cards design */
+.endCard {
+    border-radius: 0;
+    background-color: #000;
+    box-shadow: inset 0 0 0 6px #fff;
+    outline: 2px solid #000;
+    padding: 20px 30px;
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.endCard:hover {
+    transform: scale(1.02);
+}
+
+/* Match vote container */
+#matchVoteHolder {
+    border-radius: 0;
+    background-color: #000;
+    box-shadow: inset 0 0 0 6px #fff;
+    outline: 2px solid #000;
+    top: 254px;
+    padding: 16px 20px;
+}
+
+/* Headings in table */
+.tabHeader, th {
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #000;
+    padding: 12px 16px;
+    text-align: center;
+    text-shadow: 1px 1px 1px #000;
+}
+
+/* Table cell content */
+td {
+    font-size: 42px;
+    color: #fff;
+    text-align: center;
+    padding: 10px 12px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-bottom: 1px solid #fff;
+    transition: background-color 0.3s ease;
+}
+
+td:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Team total rows */
+.teamTotalN0, .teamTotalN1, .teamTotalScore {
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Full team score section */
+.teamTotals {
+    background-color: #000;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 6px #fff;
+    outline: 2px solid #000;
+    padding: 16px;
+    margin-top: 24px;
+}
+
+/* End screen countdown timer */
+#endTimer {
+    font-size: 48px;
+    font-style: normal;
+    color: #fff;
+    text-shadow: 2px 2px #000;
+    margin-top: 16px;
+}
+/* === Account Manager Button === */
+
+#accManagerBtn {
+    position: fixed !important;
+    bottom: 20px;
+    right: 100px;
+    font-size: 0 !important; /* Hide text */
+    width: auto !important;
+    padding: 8px 12px 8px 10px !important;
     margin-bottom: 0;
     border-radius: 0;
-    outline: 2px solid #000;
+    border: 2px solid #000;
     box-shadow: inset 0 0 0 6px #fff !important;
     background-color: #000 !important;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-#customizeButton .material-icons {
-    font-size: 32px !important;
-    position: relative;
-    margin: 0 !important;
-    line-height: 56px;
+#accManagerBtn:hover {
+    transform: scale(1.05);
+    box-shadow: inset 0 0 0 6px #fff, 0 0 10px #fff;
 }
 
-#menuClassSubtext, #menuClassName {
-    text-shadow: 2px 0 #000, 0 2px #000, -2px 0 #000, 0 -2px #000;
-    transform: translateY(40px);
-    opacity: 0;
-    transition-duration: 0.5s;
-}
-
-#menuClassContainer:hover> #menuClassSubtext, #menuClassContainer:hover> #menuClassName {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-#loadoutName {
-    background-color: transparent !important;
-    font-size: 24px;
-}
-
-#loadoutSelect {
-    background-color: transparent !important;
-    color: #fff;
-    font-size: 24px;
-}
-
-.selectorLabel {
-    text-shadow: none;
-    font-size: 32px;
-}
-
-#customizeContainer {
-    width: 100%;
-}
-
-#selectorContainer {
-    display: flex;
-    top: unset;
-    height: 40px;
-    margin: 0;
-    width: 100%;
-    justify-content: space-between;
-    border-bottom: 4px solid #fff;
-    margin-bottom: 10px;
-}
-
-.selectorItem {
-    transform: unset;
-    left: unset;
-    border: none !important;
-    background-color: transparent !important;
-    height: 36px;
-    margin: 0;
-}
-
-.selectorItem .selectorIcon {
-    display: none;
-}
-
-.custContainer {
-    background-color: transparent;
-    width: calc(100% - 20px) !important;
-    border: none;
-    display: none;
-    padding: 0 10px;
-}
-
-.contCanSelect {
-    display: block;
-}
-
-.custItNm {
-    font-size: 32px;
-    bottom: 0;
-    top: unset;
-    left: 10px;
-}
-
-.custIcon {
-    display: inline-block;
-    filter: grayscale(1) invert(1) drop-shadow(0px 0px 2px #fff);
-    float: right;
-    margin: 0;
-}
-
-.settLabel {
-    right: unset;
-    top: 0px;
-    text-shadow: none;
-}
-
-div[style="border-bottom: 2px solid rgb(255,255,255,0.2);padding-bottom: 13px;margin-bottom: 13px;"] .custItNm {
-    display: none;
-}
-
-.custStreakIcon {
-    filter: grayscale(1) brightness(5);
-}
-
-/*Class Cards*/
-
-.classCard {
-    background-color: transparent;
-    font-size: 24px;
-    width: calc(33% - 32px);
-    text-shadow: none;
-}
-
-.classImgC {
-    width: 148px;
-    border-radius: 0;
-}
-
-.classXPBar {
-    top: 220px;
-    width: calc(100% - 28px);
-    height: 32px;
-    border: 4px solid #fff;
-    border-radius: 0;
-    background-color: transparent;
-}
-
-.clsXPBarC {
-    margin: 4px;
-    background-image: linear-gradient(90deg, #3300c4, #fc90f5);
-    height: 24px;
-}
-
-.clsXPBarV {
-    color: #fff;
-    text-align: left;
-    left: 8px;
-    font-size: 16px;
-    line-height: 36px;
-    text-shadow: -1px -1px 0 #202020, 1px -1px 0 #202020, -1px 1px 0 #202020, 1px 1px 0 #202020, -2px -2px 0 #202020, 2px -2px 0 #202020, -2px 2px 0 #202020, 2px 2px 0 #202020;
-}
-
-.classHP {
-    display: none;
-}
-
-.classLvl {
-    top: 234px;
-    right: 20px;
-    font-size: 16px;
-    text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97999px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.51361px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
-}
-
-/*Map Host*/
-
-.serverHostOp {
-    width: 206px;
-    height: 206px;
-    line-height: 206px;
-}
-
-/*Settings*/
-
-.inputGrey2 {
-    border-radius: 0;
-    background-color: transparent !important;
-    color: #fff;
-    font-size: 26px;
-}
-
-.settingsHeader, .serverHeader {
-    background-color: #000;
-}
-
-.settingsBtn, .loadoutBtn {
-    font-size: 26px;
-    background-color: transparent;
-}
-
-#settSearch {
-    background-color: transparent !important;
-    border-bottom: 4px solid #fff;
-    border-radius: 0;
-    font-size: 24px;
-}
-
-#settingsPreset {
-    font-size: 24px !important;
-}
-
-#menuWindow ::placeholder {
-    color: #fff !important;
-}
-
-.sliderM {
-    height: 4px;
-    background-color: #fff;
-}
-
-.sliderM::-webkit-slider-thumb {
-    height: 16px;
-    width: 8px;
-}
-
-.sliderVal {
-    margin-bottom: 4px;
-    font-size: 24px;
-    border-radius: 0;
-}
-
-.switch {
-    height: 26px;
-    width: 78px;
-    margin-top: 10px;
-}
-
-.slider {
-    top: 0;
-    background-color: transparent !important;
-}
-
-.slider:before {
-    position: absolute;
-    content: "OFF";
-    line-height: 20px;
-    text-align: center;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    background-color: transparent;
+#accManagerBtn::before {
+    content: "person";
+    font-size: 34px;
+    font-family: 'Material Icons';
     color: #fff;
 }
 
-input:checked+.slider:before {
-    transform: unset;
-    content: "ON";
-}
-
-/*Terms*/
-
-#mapInfoHolder {
-    bottom: unset;
-    padding: 0;
-    right: 20px;
-    top: 80px;
-}
-
-#termsInfo {
-    background-color: transparent;
-    padding: 0;
-}
-
-.terms, .verticalSeparatorInline {
+/* === Icon Tweaks for HUD (reaffirming hidden states) === */
+#timerIcon,
+#pingIcon {
     display: none !important;
 }
 
-.terms:last-child {
-    display: block !important;
-    font-size: 36px;
+/* === Miscellaneous Enhancements === */
+#ingameFPS,
+#pingText,
+#ingressPacketCount,
+#ingressDataSize,
+#egressPacketCount,
+#egressDataSize,
+#pingDisplay,
+#fpsDisplay,
+#ingressDisplay,
+#egressDisplay {
+    user-select: none;
+    pointer-events: none;
+    z-index: 1000;
 }
 
-/*HUD*/
-
-#hudClassImg {
-    border-radius: 0;
-    width:100%;
-    height:100%;
-    image-rendering:unset !important;
-    content: url(https://static.wikia.nocookie.net/omori/images/6/6b/Basil_Neutral_%28Background%29.gif) !important;
+#timerVal, #endTimer {
+    user-select: none;
+    pointer-events: none;
 }
-
-.healthBarSeg:nth-child(4) .hpBSeg[style*=":0%;"]::before {
-    content: " ";
-    background-image: url(https://static.wikia.nocookie.net/omori/images/f/f7/Basil_Hurt_%28Background%29.gif);
-    background-size: contain;
-    height: 232px;
-    width: 232px;
-    display: block;
-    position: fixed;
-    bottom: 110px;
-    left: 38px;
-}
-
-#hudClassIcon {
-    width:232px;
-    height:232px;
-    border-radius:0px;
-    margin-right:5px;
-    background-color: #000;
-    border: 4px solid #000;
-}
-
-#bottomLeftHolder {
-    width: 240px;
-    bottom: 20px !important;
-    left: 20px;
-    text-align: left;
-    background: #eee;
-    border: 4px solid #000;
-    padding: 10px;
-    padding-bottom: 64px;
-    z-index: 0;
-}
-
-/*health*/
-
-#healthValueHolder {
-    display: block;
-    position: fixed;
-    background-color: transparent;
-    padding: 0 !important;
-    margin: 0 !important;
-    z-index: 4;
-    bottom: 72px;
-    right: calc(100% - 260px);
-    width: auto;
-}
-
-#healthValue {
-    color: #fff;
-    font-size: 20px;
-    line-height: 20px;
-    font-weight: bold;
-    text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97999px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.51361px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
-}
-
-#maxHP {
-    color: #fff;
-    display: inline-block;
-}
-
-#maxHP::first-letter {
-    font-size: 16px;
-    font-style: italic;
-}
-
-#challIcon {
-    position: fixed;
-    left: 40px;
-    bottom: 70px;
-    width: 28px;
-    height: 28px;
-    content: url(https://static.wikia.nocookie.net/omori/images/f/f5/HP.png);
-    image-rendering: auto;
-}
-
-#healthBar {
-    position: fixed;
-    width: 188px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 20px;
-    bottom: 72px;
-    left: 80px;
-    background-color: #000;
-    border-radius: 10px;
-    border: 2px solid #000;
-}
-
-.healthBarSeg {
-    width: -webkit-fill-available;
-    margin-right: -1px;
-    border-radius: 0;
-    background-color: transparent;
-}
-
-.hpBSeg {
-    border-radius: 0;
-    box-shadow: none;
-}
-
-.healthBarSeg:first-child, .healthBarSeg:first-child .hpBSeg {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.healthBarSeg:last-child, .healthBarSeg:last-child .hpBSeg {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-#ammoDisplay[style*="background-size: 0%;"] {
-    background-size: 100% !important;
-}
-
-#ammoDisplay {
-    padding: 0 !important;
-    position: fixed;
-    left: 80px;
-    bottom: 36px;
-    width: 188px;
-    height: 20px;
-    font-size: 20px;
-    line-height: 20px;
-    background-image: linear-gradient(#23a8b0, #23a8b0);
-    background-color: #000;
-    border-radius: 10px;
-    border: 2px solid #000;
-    text-align: right;
-    letter-spacing: 0;
-    -webkit-transform: unset !important;
-    transform: unset !important;
-}
-
-#ammoVal {
-    font-weight: bold;
-    text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97999px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.51361px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
-}
-
-#ammoMax {
-    color: #fff !important;
-    font-weight: bold;
-    text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97999px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.51361px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
-    margin-right: 12px;
-}
-
-#ammoMax::first-letter {
-    font-size: 16px;
-    margin-right: 2px;
-    font-style: italic;
-}
-
-#ammoIcon {
-    position: absolute;
-    height: 28px;
-    width: 28px;
-    left: -48px;
-    bottom: -4px;
-    content: url(https://cdn.discordapp.com/attachments/622258375245430790/803177406264377384/MP.svg);
-}
-
-#weapDisplay {
-    position:absolute;
-    display: inline-block;
-    direction: rtl;
-    z-index:1;
-    left: 50%;
-    right: unset;
-    bottom: 80px;
-    transform: translateX(50%);
-}
-
-.weapItem {
-    position: absolute;
-    transform: translateX(32px);
-}
-
-.weapKey {
-    display: none;
-}
-
-.weapIcon {
-    width:96px;
-    height:48px;
-    opacity: 0 !important;
-    margin: 0 !important;
-}
-
-.weapIcon[style*="opacity:1"] {
-    opacity: 1 !important;
-    transform: scale(1);
-    transition-duration: 0.25s;
-}
-
-.weapIcon[style*="opacity: 1"] {
-    opacity: 1 !important;
-    transform: scale(1);
-    transition-duration: 0.25s;
-}
-
-#topLeftHolder[style="display: block;"] {
-    display: flex !important;
-    flex-direction: column;
-}
-
-#topLeftHolder {
-    padding: 12px 16px;
-    background-color: #000;
-    box-shadow: inset 0 0 0 6px #fff;
-    outline: 2px solid #000;
-    width: 240px;
-}
-
-.leftUIB {
-    background-color: transparent;
-}
-
-#timerDisplay {
-    margin: 0;
-    position: fixed;
-    left: 50%;
-    top: 20px;
-    transform: translateX(-50%);
-    background-color: #000;
-    padding: 12px;
-    padding-left: 16px;
-    border-radius: 0;
-    box-shadow: inset 0 0 0 6px #fff;
-    outline: 2px solid #000;
-}
-
 #timerVal {
     font-size: 48px;
 }
@@ -1130,10 +426,15 @@ input:checked+.slider:before {
     display: none;
 }
 
-#pingText, #ingressPacketCount, #ingressDataSize, #egressPacketCount, #egressDataSize, #pingDisplay, #fpsDisplay, #ingressDisplay, #egressDisplay {
+#pingText, #ingressPacketCount, #ingressDataSize,
+#egressPacketCount, #egressDataSize,
+#pingDisplay, #fpsDisplay, #ingressDisplay, #egressDisplay {
     font-size: 20px;
     text-shadow: 1px 0 #000, 0 1px #000, -1px 0 #000, 0 -1px #000;
     color: #fff;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1000;
 }
 
 #pingIcon {
@@ -1146,6 +447,8 @@ input:checked+.slider:before {
 
 #ingameFPS {
     color: #fff !important;
+    user-select: none;
+    pointer-events: none;
 }
 
 .topRightCounters {
@@ -1157,6 +460,7 @@ input:checked+.slider:before {
     background-color: #000;
     box-shadow: inset 0 0 0 6px #fff;
     border: 2px solid #000;
+    z-index: 1000;
 }
 
 .countIcon {
@@ -1176,7 +480,6 @@ input:checked+.slider:before {
 #killsVal, #deathsVal, #streakVal, #myScoreVal, #kdVal {
     color: #fff;
 }
-
 #leaderDisplay {
     color: #fff;
     background-color: #000;
@@ -1184,6 +487,7 @@ input:checked+.slider:before {
     padding: 12px 16px;
     box-shadow: inset 0 0 0 6px #fff;
     outline: 2px solid #000;
+    z-index: 1000;
 }
 
 .leaderItem {
@@ -1194,14 +498,15 @@ input:checked+.slider:before {
     color: #fff;
 }
 
-/*End*/
-
 #endAContainer {
     display: none !important;
 }
 
 #victoryText {
     margin-top: 48px;
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
 }
 
 #matchVoteHolder {
@@ -1220,28 +525,34 @@ input:checked+.slider:before {
     border-radius: 0;
     background-color: #000;
     box-shadow: inset 0 0 0 6px #fff;
-    outline: 2px solid;
+    outline: 2px solid #000;
+    padding: 16px;
+    color: #fff;
 }
 
 .tabHeader {
     font-size: 32px;
+    color: #fff;
 }
 
 th {
     font-size: 32px;
+    color: #fff;
 }
 
 td {
     font-size: 42px;
+    color: #fff;
 }
-
 .teamTotalN0, .teamTotalN1 {
     font-size: 32px;
     font-weight: bold;
+    color: #fff;
 }
 
 .teamTotalScore {
     font-size: 32px;
+    color: #fff;
 }
 
 .teamTotals {
@@ -1249,16 +560,17 @@ td {
     border-radius: 0;
     box-shadow: inset 0 0 0 6px #fff;
     outline: 2px solid #000;
+    padding: 12px;
 }
 
 #endTimer {
     font-size: 48px;
     font-style: normal;
     color: #fff;
+    text-shadow: 1px 1px 0 #000;
 }
 
-/*idkr*/
-
+/* Account Manager Button */
 #accManagerBtn {
     position: fixed !important;
     bottom: 20px;
@@ -1271,11 +583,1370 @@ td {
     border: 2px solid #000;
     box-shadow: inset 0 0 0 6px #fff !important;
     background-color: #000 !important;
+    cursor: pointer;
+    z-index: 999;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #accManagerBtn::before {
     content: "person";
     font-size: 34px;
     font-family: 'Material Icons';
+    color: #fff;
 }
 
+/* Buttons (generic styles) */
+button, .btn {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #000;
+    box-shadow: inset 0 0 0 6px #fff;
+    padding: 8px 16px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: inset 0 0 0 6px #000;
+}
+
+/* Tooltip Styling */
+.tooltip {
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    padding: 6px 10px;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 4px #000;
+    font-size: 14px;
+    z-index: 9999;
+    border-radius: 0;
+}
+
+/* Health bar / Shield bar */
+.healthBar, .shieldBar {
+    height: 20px;
+    border: 2px solid #000;
+    box-shadow: inset 0 0 0 6px #fff;
+    background-color: #000;
+    margin-top: 6px;
+}
+
+.healthFill {
+    background-color: #f00;
+    height: 100%;
+    width: 80%; /* Dynamic in-game */
+}
+
+.shieldFill {
+    background-color: #00f;
+    height: 100%;
+    width: 50%; /* Dynamic */
+}
+/* Leaderboard styles */
+#leaderDisplay {
+    color: #fff;
+    background-color: #000;
+    border-radius: 0;
+    padding: 12px 16px;
+    box-shadow: inset 0 0 0 6px #fff;
+    outline: 2px solid #000;
+    font-size: 20px;
+    text-align: center;
+}
+
+.leaderItem {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.leaderScore {
+    color: #fff;
+    font-size: 18px;
+    margin-left: 4px;
+}
+
+/* Hit / Damage feedback */
+.hitMarker {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: hitFlash 0.3s ease-in-out;
+    z-index: 9999;
+}
+
+@keyframes hitFlash {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+/* Chat box UI */
+#chatBox {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+    border: 2px solid #fff;
+    border-radius: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: inset 0 0 0 6px #000;
+}
+
+.chatInput {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 16px;
+    padding: 6px 10px;
+    width: 100%;
+    outline: none;
+    border-radius: 0;
+}
+
+/* Score popups */
+.scorePopup {
+    position: absolute;
+    font-size: 22px;
+    font-weight: bold;
+    color: #0f0;
+    text-shadow: 1px 1px #000;
+    animation: floatScore 1s ease-out;
+    z-index: 999;
+}
+
+@keyframes floatScore {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-40px); opacity: 0; }
+}
+
+/* HUD Alert */
+.hudAlert {
+    background-color: #000;
+    color: #fff;
+    padding: 12px 16px;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 6px #000;
+    font-size: 18px;
+    border-radius: 0;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    animation: alertPop 0.5s ease-in-out;
+}
+
+@keyframes alertPop {
+    0% { transform: scale(0.9) translateX(-50%); opacity: 0; }
+    100% { transform: scale(1) translateX(-50%); opacity: 1; }
+}
+/* Loading Screen */
+#loadingScreen {
+    background-color: #000 !important;
+    color: #fff !important;
+    font-size: 28px !important;
+    font-weight: bold;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 1px 1px #000;
+}
+
+/* Buttons */
+button, .btn {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    border-radius: 0 !important;
+    padding: 8px 16px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    box-shadow: inset 0 0 0 4px #000;
+}
+
+button:hover, .btn:hover {
+    background-color: #111 !important;
+    box-shadow: inset 0 0 0 6px #fff;
+}
+
+/* Tooltips */
+.tooltip {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 0;
+    box-shadow: 2px 2px 0 #fff;
+    z-index: 10000;
+}
+
+/* Progress bars */
+.progressBar, .loadingBar {
+    background-color: #000;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 6px #fff;
+    border-radius: 0;
+}
+
+.progressBarInner, .loadingBarInner {
+    background-color: #fff;
+    height: 100%;
+    transition: width 0.4s ease;
+}
+
+/* Scrollbar cleanup */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    border-radius: 0;
+    border: 2px solid #000;
+}
+
+/* General Fix: Remove border-radius everywhere */
+* {
+    border-radius: 0 !important;
+}
+
+/* Optional: Prevent text selection for smoother UI */
+body, button, .btn {
+    user-select: none;
+}
+/* TIMER + COUNTERS */
+#timerVal {
+    font-size: 48px;
+}
+#timerIcon, #pingIcon {
+    display: none;
+}
+#pingText::after {
+    content: " ms";
+}
+#pingText, #ingressPacketCount, #ingressDataSize, #egressPacketCount, #egressDataSize, #pingDisplay, #fpsDisplay, #ingressDisplay, #egressDisplay, #ingameFPS {
+    font-size: 20px;
+    color: #fff !important;
+    text-shadow: 1px 0 #000, 0 1px #000, -1px 0 #000, 0 -1px #000;
+}
+.topRightCounters {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto !important;
+    background-color: #000;
+    box-shadow: inset 0 0 0 6px #fff;
+    border: 2px solid #000;
+}
+
+/* ICON + SCORE */
+.countIcon {
+    color: #fff;
+    font-size: 36px;
+    line-height: 64px;
+    padding: 12px 24px 0px 24px;
+    background-color: transparent;
+    border-radius: 0;
+}
+#killsIcon, #deathsIcon, #streakIcon, #kdIcon {
+    width: 24px;
+    height: 24px;
+}
+#killsVal, #deathsVal, #streakVal, #myScoreVal, #kdVal {
+    color: #fff;
+}
+
+/* LEADERBOARD */
+#leaderDisplay {
+    color: #fff;
+    background-color: #000;
+    padding: 12px 16px;
+    box-shadow: inset 0 0 0 6px #fff;
+    outline: 2px solid #000;
+    border-radius: 0;
+}
+.leaderItem, .leaderScore {
+    font-size: 20px;
+    color: #fff;
+}
+
+/* END SCREEN */
+#endAContainer {
+    display: none !important;
+}
+#victoryText {
+    margin-top: 48px;
+}
+#matchVoteHolder {
+    background-color: #000;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 6px #fff;
+    outline: 2px solid #000;
+    top: 254px;
+}
+#endMidHolder {
+    margin-top: 72px;
+}
+.endCard {
+    border-radius: 0;
+    background-color: #000;
+    box-shadow: inset 0 0 0 6px #fff;
+    outline: 2px solid;
+}
+.tabHeader, th, .teamTotalN0, .teamTotalN1, .teamTotalScore {
+    font-size: 32px;
+    font-weight: bold;
+}
+td {
+    font-size: 42px;
+}
+.teamTotals {
+    background-color: #000;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 6px #fff;
+    outline: 2px solid #000;
+}
+#endTimer {
+    font-size: 48px;
+    color: #fff;
+    font-style: normal;
+}
+
+/* ACCOUNT MANAGER BUTTON */
+#accManagerBtn {
+    position: fixed !important;
+    bottom: 20px;
+    right: 100px;
+    font-size: 0 !important;
+    width: auto !important;
+    padding: 8px 12px 8px 10px !important;
+    border-radius: 0;
+    border: 2px solid #000;
+    box-shadow: inset 0 0 0 6px #fff !important;
+    background-color: #000 !important;
+}
+#accManagerBtn::before {
+    content: "person";
+    font-size: 34px;
+    font-family: 'Material Icons';
+}
+
+/* BUTTON STYLING */
+button, .btn {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    border-radius: 0 !important;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 4px #000;
+    transition: background 0.2s ease;
+}
+button:hover, .btn:hover {
+    background-color: #111 !important;
+    box-shadow: inset 0 0 0 6px #fff;
+}
+
+/* TOOLTIPS */
+.tooltip {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 0;
+    box-shadow: 2px 2px 0 #fff;
+}
+
+/* PROGRESS / BARS */
+.progressBar, .loadingBar {
+    background-color: #000;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 6px #fff;
+    border-radius: 0;
+}
+.progressBarInner, .loadingBarInner {
+    background-color: #fff;
+    height: 100%;
+    transition: width 0.4s ease;
+}
+
+/* SCROLLBARS */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #000;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    border-radius: 0;
+    border: 2px solid #000;
+}
+
+/* GLOBAL FIXES */
+* {
+    border-radius: 0 !important;
+}
+body, button, .btn {
+    user-select: none;
+}
+
+/* LOADING SCREEN */
+#loadingScreen {
+    background-color: #000 !important;
+    color: #fff !important;
+    font-size: 28px !important;
+    font-weight: bold;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 1px 1px #000;
+}
+/* HUD & TEAM UI */
+#hudClassIcon {
+    width: 64px;
+    height: 64px;
+    border: 2px solid #fff;
+    background-color: #000;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 6px #fff;
+}
+#teamScores {
+    top: 50px;
+    background: #000;
+    border-radius: 0;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 6px #fff;
+}
+.teamScore {
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* HEALTH / ARMOR / AMMO */
+#healthBar, #ammoBar, #armorBar {
+    background-color: #000;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 6px #fff;
+    border-radius: 0;
+    height: 16px;
+}
+#healthVal, #ammoVal, #armorVal {
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px #000;
+}
+
+/* CHAT STYLES */
+#chatInputHolder, #chatList {
+    background-color: #000;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 6px #fff;
+    color: #fff;
+    border-radius: 0;
+}
+.chatMsg {
+    font-size: 16px;
+    color: #fff;
+}
+.chatName {
+    color: #0ff;
+    font-weight: bold;
+}
+#chatInput {
+    background-color: #111;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 0;
+}
+#chatHolder {
+    bottom: 100px;
+}
+
+/* MENU UI PANELS */
+.menuCard {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 6px #fff;
+    padding: 24px;
+}
+.menuItem, .menuOption, .menuTab {
+    font-size: 18px;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background-color: #111;
+    border-radius: 0;
+}
+.menuTab:hover, .menuOption:hover {
+    background-color: #222;
+    box-shadow: inset 0 0 0 4px #fff;
+}
+
+/* DROPDOWNS */
+select, .dropdown {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 16px;
+    border-radius: 0;
+    padding: 6px 10px;
+}
+option {
+    background-color: #000;
+    color: #fff;
+}
+
+/* SLIDERS & INPUTS */
+input[type=range] {
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #000;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 4px #fff;
+}
+input[type=range]::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    background: #fff;
+    cursor: pointer;
+    border: 2px solid #000;
+}
+input[type=text], input[type=password], input[type=number] {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 0;
+}
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #fff;
+}
+
+/* TOGGLE / CHECKBOX */
+input[type=checkbox] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background-color: #000;
+    border: 2px solid #fff;
+}
+input[type=checkbox]:checked {
+    background-color: #fff;
+}
+
+/* MINI ICONS */
+.material-icons, .material-icons-round {
+    font-size: 24px;
+    color: #fff;
+    vertical-align: middle;
+}
+
+/* FPS, PING, MATCH INFO BOX */
+#hudPing, #hudFPS, #hudMatchInfo {
+    font-size: 20px;
+    color: #fff;
+    background-color: #000;
+    border: 2px solid #fff;
+    padding: 6px 10px;
+    border-radius: 0;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* SPECTATOR & KILLFEED */
+#specHUD {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 20px;
+    border-radius: 0;
+}
+.killFeed {
+    font-size: 16px;
+    color: #fff;
+}
+.killFeedEntry {
+    margin-bottom: 4px;
+    background-color: #111;
+    padding: 6px;
+    border-left: 4px solid #fff;
+}
+
+/* Z-INDEX FIXES */
+#chatHolder, #hudMatchInfo, #hudPing, #hudFPS {
+    z-index: 9999;
+}
+/* MODALS & POPUPS */
+.modal, .popup {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 24px;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 6px #fff;
+    font-size: 18px;
+    z-index: 9999;
+}
+.modal h2, .popup h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 16px;
+}
+.modal button, .popup button {
+    background-color: #111;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 0.2s;
+}
+.modal button:hover, .popup button:hover {
+    background-color: #222;
+    box-shadow: inset 0 0 0 4px #fff;
+}
+
+/* TOOLTIP */
+.tooltip {
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 14px;
+    padding: 6px 8px;
+    border-radius: 0;
+    box-shadow: 0 0 0 4px #fff;
+    z-index: 999;
+}
+
+/* SETTINGS UI */
+#settingsPanel {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 16px;
+    box-shadow: inset 0 0 0 6px #fff;
+}
+.settingsGroup {
+    margin-bottom: 16px;
+}
+.settingsGroup label {
+    font-size: 16px;
+    color: #fff;
+    display: block;
+    margin-bottom: 4px;
+}
+.settingsGroup input,
+.settingsGroup select {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 6px 10px;
+    font-size: 16px;
+    border-radius: 0;
+}
+
+/* BUTTONS */
+.btn, .button {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 0;
+    transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+.btn:hover, .button:hover {
+    background-color: #111;
+    transform: scale(1.05);
+}
+.btn:active, .button:active {
+    transform: scale(0.95);
+}
+
+/* TAB SWITCHING */
+.tabs {
+    display: flex;
+    background: #000;
+    border: 2px solid #fff;
+    border-radius: 0;
+    overflow: hidden;
+}
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background-color: #111;
+    color: #fff;
+    font-weight: bold;
+    border-right: 1px solid #fff;
+    cursor: pointer;
+}
+.tab:last-child {
+    border-right: none;
+}
+.tab:hover {
+    background-color: #222;
+}
+.tab.active {
+    background-color: #333;
+}
+
+/* SCROLLBAR OVERRIDE */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #000;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 0;
+}
+
+/* ANIMATIONS (OPTIONAL) */
+.fade-in {
+    animation: fadeIn 0.4s ease-in-out forwards;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* SEARCH BAR & FILTERS */
+#searchBar {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 0;
+}
+.searchIcon {
+    color: #fff;
+    margin-right: 6px;
+}
+
+/* BADGES, TAGS, LABELS */
+.badge, .tag {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 4px 8px;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 6px;
+    border-radius: 0;
+}
+
+/* NOTIFICATION TOAST */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 0;
+    box-shadow: 0 0 10px #fff;
+    z-index: 9999;
+}
+/* DROPDOWN MENUS */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #000;
+    min-width: 160px;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 4px #fff;
+    z-index: 1;
+}
+.dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+}
+.dropdown-content a:hover {
+    background-color: #111;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* SLIDERS & RANGE INPUTS */
+input[type=range] {
+    width: 100%;
+    -webkit-appearance: none;
+    background: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    background: #fff;
+    border: 2px solid #000;
+    cursor: pointer;
+    margin-top: -6px;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: #fff;
+}
+input[type=range]:focus {
+    outline: none;
+}
+
+/* PROGRESS BAR */
+.progress {
+    width: 100%;
+    background-color: #111;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 6px #fff;
+    height: 20px;
+    border-radius: 0;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background-color: #fff;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* COLLAPSIBLE SECTIONS */
+.collapsible {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    padding: 14px 16px;
+    width: 100%;
+    border: 2px solid #fff;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    border-radius: 0;
+}
+.collapsible:hover {
+    background-color: #111;
+}
+.collapsible:after {
+    content: '+';
+    float: right;
+}
+.collapsible.active:after {
+    content: '-';
+}
+.content {
+    padding: 0 16px;
+    display: none;
+    overflow: hidden;
+    background-color: #000;
+    border-top: 2px solid #fff;
+}
+
+/* FLEXBOX HELPERS */
+.flex {
+    display: flex;
+}
+.flex-col {
+    flex-direction: column;
+}
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.space-between {
+    justify-content: space-between;
+}
+
+/* RESPONSIVE GRID */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+/* MOBILE BREAKPOINTS */
+@media (max-width: 768px) {
+    .grid-3, .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .dropdown-content {
+        min-width: 120px;
+    }
+    .tab {
+        font-size: 14px;
+        padding: 8px;
+    }
+    .modal, .popup {
+        padding: 16px;
+    }
+    .progress {
+        height: 16px;
+    }
+}
+
+/* DARK GLOW (GAMER UI BOOST) */
+.glowText {
+    color: #fff;
+    text-shadow: 0 0 4px #fff, 0 0 8px #fff;
+}
+.glowBorder {
+    box-shadow: 0 0 8px #fff, inset 0 0 4px #fff;
+}
+/* BUTTON STYLING */
+.btn {
+    padding: 12px 24px;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 6px #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+.btn:hover {
+    background-color: #111;
+    color: #0ff;
+    box-shadow: inset 0 0 0 6px #0ff;
+}
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* MODAL STYLING */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+.modal-content {
+    background-color: #000;
+    margin: 10% auto;
+    padding: 20px;
+    border: 2px solid #fff;
+    width: 80%;
+    box-shadow: inset 0 0 0 6px #fff;
+    border-radius: 0;
+}
+.close-btn {
+    color: #fff;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: #f00;
+}
+
+/* ALERT BOXES */
+.alert {
+    padding: 16px;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 6px #fff;
+    margin: 16px 0;
+}
+.alert-success {
+    border-color: #0f0;
+    box-shadow: inset 0 0 0 6px #0f0;
+}
+.alert-error {
+    border-color: #f00;
+    box-shadow: inset 0 0 0 6px #f00;
+}
+
+/* BADGE UI */
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 4px #fff;
+    border-radius: 0;
+}
+.badge-warning {
+    background-color: #111;
+    border-color: #ff0;
+    box-shadow: inset 0 0 0 4px #ff0;
+    color: #ff0;
+}
+
+/* TABS UI */
+.tab-container {
+    display: flex;
+    border-bottom: 2px solid #fff;
+    background-color: #000;
+}
+.tab {
+    padding: 12px 16px;
+    cursor: pointer;
+    color: #fff;
+    border: 2px solid #000;
+    border-bottom: none;
+}
+.tab.active {
+    background-color: #111;
+    border: 2px solid #fff;
+    border-bottom: 2px solid #000;
+}
+
+/* TOOLTIP */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    border: 2px solid #fff;
+    box-shadow: inset 0 0 0 4px #fff;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* IMAGE SHADOW GLOW */
+.img-glow {
+    border: 2px solid #fff;
+    box-shadow: 0 0 8px #fff, 0 0 16px #fff;
+    background-color: #000;
+}
+
+/* MOBILE TWEAKS */
+@media (max-width: 480px) {
+    .btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    .modal-content {
+        width: 90%;
+        padding: 16px;
+    }
+    .alert, .badge {
+        font-size: 12px;
+    }
+    .tab {
+        padding: 8px;
+        font-size: 14px;
+    }
+    .tooltip .tooltiptext {
+        width: 120px;
+        font-size: 12px;
+    }
+}
+/* ========== Animations & Transitions ========== */
+
+.fade-in {
+    animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.bounce-in {
+    animation: bounceIn 0.7s ease forwards;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+/* ========== Scrollbar Styling ========== */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fff;
+    border: 2px solid #000;
+    box-shadow: inset 0 0 0 2px #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}
+
+/* ========== Quick Utility Classes ========== */
+
+.text-white { color: #fff !important; }
+.text-black { color: #000 !important; }
+.bg-black { background-color: #000 !important; }
+.bg-white { background-color: #fff !important; }
+
+.p-8 { padding: 8px !important; }
+.px-16 { padding-left: 16px !important; padding-right: 16px !important; }
+
+.rounded-none { border-radius: 0 !important; }
+
+.shadow-inset-white {
+    box-shadow: inset 0 0 0 6px #fff !important;
+}
+
+.border-2-black {
+    border: 2px solid #000 !important;
+}
+/* ========== Button Styles ========== */
+
+.btn-flat {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    box-shadow: inset 0 0 0 6px #fff;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    border-radius: 0;
+}
+
+.btn-flat:hover {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #b00020;
+    color: #fff;
+    border: 2px solid #000;
+    box-shadow: inset 0 0 0 6px #fff;
+    border-radius: 0;
+}
+
+.btn-danger:hover {
+    background-color: #ff1744;
+}
+
+/* ========== Loader Styles ========== */
+
+.loader {
+    border: 6px solid #000;
+    border-top: 6px solid #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ========== Notifications ========== */
+
+.toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: #fff;
+    padding: 16px 24px;
+    box-shadow: inset 0 0 0 6px #fff;
+    border: 2px solid #000;
+    font-size: 18px;
+    border-radius: 0;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease;
+}
+
+/* ========== Responsive Break Fixes ========== */
+
+@media (max-width: 768px) {
+    .topRightCounters {
+        bottom: 10px;
+        font-size: 16px;
+        transform: scale(0.9) translateX(-50%);
+    }
+
+    #accManagerBtn {
+        right: 20px;
+        padding: 6px 10px !important;
+    }
+
+    .btn-flat {
+        font-size: 16px;
+        padding: 8px 14px;
+    }
+}
+/* ========== Global Reset ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #111;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* ========== Scrollbar Styling ========== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 0;
+}
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+/* ========== Utility Classes ========== */
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.p-20 { padding: 20px; }
+
+.hidden {
+    display: none !important;
+}
+
+/* ========== Footer/Credits (Optional) ========== */
+.footer {
+    text-align: center;
+    font-size: 14px;
+    padding: 12px 0;
+    border-top: 2px solid #fff;
+    margin-top: 40px;
+    color: #aaa;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer a:hover {
+    color: #0ff;
+}
